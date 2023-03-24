@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-path = './data/Book1.xlsx'
+path = './data/Book2.xlsx'
 
 df = pd.read_excel(io=path, sheet_name='Sheet1')
 
@@ -108,10 +108,14 @@ def handleDateOfBirth(dataOfBirth: List[datetime.date]):
     )
 
 
+# Handle Gender
 def handleGender():
     gendersData: list[str] = []
     rangeGender1: list[str] = []
     rangeGender2: list[str] = []
+
+    record1 = df[['Giới tính', 'Loại mặt hàng thường xuyên mua']].values
+    print(record1)
 
     for gender in genders:
         if type(gender) is float: continue
@@ -120,12 +124,17 @@ def handleGender():
 
         if gender == 'Nữ':
             rangeGender1.append(gender)
+
         else:
             rangeGender2.append(gender)
 
     totalGenders = len(gendersData)
     percentRange1 = len(rangeGender1) / totalGenders * 100
     percentRange2 = len(rangeGender2) / totalGenders * 100
+    print('======')
+    print('Nữ:', percentRange1)
+    print('Nam:', percentRange2)
+    print('======')
     veBieuDoTron(
         data=[percentRange1, percentRange2],
         labels=['Nữ', 'Nam']
@@ -310,23 +319,23 @@ def handleBuyOften():
           percentRange16,
           percentRange17,
           ]
-    labels=['Phụ kiện thời trang',
-            'Đồ handmade',
-            'Thực phẩm sạch',
-            'Phụ kiện thời trang',
-            'Đồ gia dụng',
-            'Phụ kiện điện thoại phụ kiện thú cưng',
-            'Đồ ăn vặt',
-            'Quà tặng',
-            'Quần áo hàng thùng',
-            'Quần áo',
-            'Đồ theo hot “trend”',
-            'Mỹ phẩm',
-            'Đồ uống có cồn',
-            'Đồ uống giải khát',
-            'Mặt hàng cây cảnh trang trí',
-            'Phụ kiện thời trang',
-            'Giày dép',
+    labels=['1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            '10',
+            '11',
+            '12',
+            '13',
+            '14',
+            '15',
+            '16',
+            '17',
             ]
     veBieuDoTron(
         data=data,
@@ -570,6 +579,104 @@ def handleReturnProduct():
     )
 
 
+def handleAddress():
+    datas: List[str] = []
+
+    range1: List[str] = [] # Quận
+    range2: List[str] = [] # Ba Đình
+    range3: List[str] = [] # Tây Hồ
+    range4: List[str] = [] # Hai Bà Trưng
+    range5: List[str] = [] # Hà Đông
+    range6: List[str] = [] # Bắc Từ Liêm
+    range7: List[str] = [] # Cầu Giấy
+    range8: List[str] = [] # Hoàng Mai
+    range9: List[str] = [] # Long Biên
+    range10: List[str] = [] # Thanh Xuân
+    range11: List[str] = [] # Đống Đa
+
+    for ele in address:
+        if type(ele) is float: continue
+        eles = ele.split("-")
+        district = eles[1].strip()
+        datas.append(district)
+        if district == "Quận":
+            range1.append(district)
+        if district == "Ba Đình":
+            range2.append(district)
+        if district == "Tây Hồ":
+            range3.append(district)
+        if district == "Hai Bà Trưng":
+            range4.append(district)
+        if district == "Hà Đông":
+            range5.append(district)
+        if district == "Bắc Từ Liêm":
+            range6.append(district)
+        if district == "Cầu Giấy":
+            range7.append(district)
+        if district == "Hoàng Mai":
+            range8.append(district)
+        if district == "Long Biên":
+            range9.append(district)
+        if district == "Thanh Xuân":
+            range10.append(district)
+        if district == "Đống Đa":
+            range11.append(district)
+
+    total = len(datas)
+    percentRange1 = len(range1) / total * 100
+    percentRange2 = len(range2) / total * 100
+    percentRange3 = len(range3) / total * 100
+    percentRange4 = len(range4) / total * 100
+    percentRange5 = len(range5) / total * 100
+    percentRange6 = len(range6) / total * 100
+    percentRange7 = len(range7) / total * 100
+    percentRange8 = len(range8) / total * 100
+    percentRange9 = len(range9) / total * 100
+    percentRange10 = len(range10) / total * 100
+    percentRange11 = len(range11) / total * 100
+    print('======')
+    print('Quận:', percentRange1)
+    print('Ba Đình:', percentRange2)
+    print('Tây Hồ:', percentRange3)
+    print('Hai Bà Trưng:', percentRange4)
+    print('Hà Đông:', percentRange5)
+    print('Bắc Từ Liêm:', percentRange6)
+    print('Cầu Giấy:', percentRange7)
+    print('Hoàng Mai:', percentRange8)
+    print('Long Biên:', percentRange9)
+    print('Thanh Xuân:', percentRange10)
+    print('Đống Đa:', percentRange11)
+    print('======')
+    data=[percentRange1,
+          percentRange2,
+          percentRange3,
+          percentRange4,
+          percentRange5,
+          percentRange6,
+          percentRange7,
+          percentRange8,
+          percentRange9,
+          percentRange10,
+          percentRange11,
+          ]
+    labels=['Quận',
+            'Ba Đình',
+            'Tây Hồ',
+            'Hai Bà Trưng',
+            'Hà Đông',
+            'Bắc Từ Liêm',
+            'Cầu Giấy',
+            'Hoàng Mai',
+            'Long Biên',
+            'Thanh Xuân',
+            'Đống Đa',
+            ]
+    veBieuDoTron(
+        data=data,
+        labels=labels,
+    )
+
+
 
 # print(name)
 # print(dateOfBirth)
@@ -578,11 +685,12 @@ def handleReturnProduct():
 # print(salary)
 
 if __name__ == '__main__':
-    handleDateOfBirth(dateOfBirth)
+    # handleDateOfBirth(dateOfBirth)
     handleGender()
-    handleSalary()
-    handleBuyOften()
-    handleShop()
-    handleLevel()
-    handleVote()
-    handleReturnProduct()
+    # handleSalary()
+    # handleBuyOften()
+    # handleShop()
+    # handleLevel()
+    # handleVote()
+    # handleReturnProduct()
+    # handleAddress()
