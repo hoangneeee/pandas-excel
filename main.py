@@ -109,15 +109,56 @@ def handleDateOfBirth(dataOfBirth: List[datetime.date]):
 
 
 # Handle Gender
+def handleBuyOftenGender():
+    record1 = df['Loại mặt hàng thường xuyên mua']
+    dataRecord1 = record1[df['Giới tính'] == 'Nữ']
+    print('Số lượng mặt hàng được giới tính Nữ mua nhiều')
+    print(dataRecord1.describe())
+    dataRecord1.value_counts().plot(kind='bar')
+    print('======')
+    # dataRecord2 = record1[df['Giới tính'] == 'Nam']
+    # print('Số lượng mặt hàng được giới tính Nam mua nhiều')
+    # print(dataRecord2.describe())
+    # dataRecord2.value_counts().plot(kind='bar')
+    # print('======')
+
+
+def handleSanTMGender():
+    record2 = df['Sàn thương mại yêu thích']
+    dataRecord1 = record2[df['Giới tính'] == 'Nữ']
+    print('Sàn thương mại được giới tính nữ sử dụng nhiều')
+    print(dataRecord1.describe())
+    dataRecord1.value_counts().plot(kind='bar')
+    dataRecord2 = record2[df['Giới tính'] == 'Nam']
+    print('Sàn thương mại được giới tính Nam sử dụng nhiều')
+    print(dataRecord2.describe())
+    dataRecord2.value_counts().plot(kind='bar')
+
+
+def handleMucTienChiTraGender():
+    record1 = df['Mức tiền chi trả cho nhu cầu mua hàng onl']
+    dataRecord1 = record1[df['Giới tính'] == 'Nữ']
+    print('Mức tiền chi trả cho nhu cầu mua hàng onl của nữ giới')
+    print(dataRecord1.describe())
+    dataRecord1.value_counts().plot(kind='bar')
+    print('======')
+    dataRecord2 = record1[df['Giới tính'] == 'Nam']
+    print('Mức tiền chi trả cho nhu cầu mua hàng onl của Nam giới')
+    print(dataRecord2.describe())
+    dataRecord2.value_counts().plot(kind='bar')
+    print('======')
+
+
 def handleGender():
     gendersData: list[str] = []
     rangeGender1: list[str] = []
     rangeGender2: list[str] = []
 
-    record1 = df[['Giới tính', 'Loại mặt hàng thường xuyên mua']].values
-    print(record1)
+    # handleBuyOftenGender()
+    handleSanTMGender()
+    # handleMucTienChiTraGender()
 
-    for gender in genders:
+    for x, gender in enumerate(genders):
         if type(gender) is float: continue
 
         gendersData.append(gender)
@@ -132,6 +173,7 @@ def handleGender():
     percentRange1 = len(rangeGender1) / totalGenders * 100
     percentRange2 = len(rangeGender2) / totalGenders * 100
     print('======')
+    print('Tỷ lệ nữ và tỷ lệ nam')
     print('Nữ:', percentRange1)
     print('Nam:', percentRange2)
     print('======')
@@ -439,11 +481,23 @@ def handleShop():
     )
 
 
+# Xu ly muc do hai long
+def handleSanTMLevel():
+    record1 = df['Sàn thương mại yêu thích']
+    dataRecord1 = record1[df['Mức hài lòng'] == 'Hài Lòng']
+    print('Sàn thương mại được phản hồi hài lòng nhiều nhất')
+    print(dataRecord1.describe())
+    dataRecord1.value_counts().plot(kind='bar')
+    print('======')
+
+
 def handleLevel():
     datas: List[str] = []
 
     range1: List[str] = []
     range2: List[str] = []
+
+    handleSanTMLevel()
 
     for ele in level:
         if type(ele) is float: continue
@@ -685,12 +739,12 @@ def handleAddress():
 # print(salary)
 
 if __name__ == '__main__':
-    # handleDateOfBirth(dateOfBirth)
+    handleDateOfBirth(dateOfBirth)
     handleGender()
-    # handleSalary()
-    # handleBuyOften()
-    # handleShop()
-    # handleLevel()
-    # handleVote()
-    # handleReturnProduct()
-    # handleAddress()
+    handleSalary()
+    handleBuyOften()
+    handleShop()
+    handleLevel()
+    handleVote()
+    handleReturnProduct()
+    handleAddress()
